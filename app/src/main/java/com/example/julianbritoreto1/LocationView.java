@@ -1,75 +1,72 @@
 package com.example.julianbritoreto1;
 
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class LocationView extends RecyclerView.ViewHolder  {
+public class LocItemView extends RecyclerView.ViewHolder {
 
     private ConstraintLayout root;
-    private TextView nombre;
-    private TextView score;
-    private ImageView lugarImage;
-    private Bitmap bitmap;
-    private ImageButton seeInTheMap;
-    private ButtonEyeLister lister;
+    private TextView locationName;
+    private TextView locationScore;
+    private TextView distance;
+    private ImageView locationImg;
+    private ImageButton locationViewBT;
+
+    private LocationItem item;
+
+    private LocItemAdapter observer;
 
 
 
 
-    public LocationView(@NonNull View root) {
+    public LocItemView(ConstraintLayout root) {
         super(root);
-        this.root = (ConstraintLayout) root;
-        nombre = root.findViewById(R.id.nombreLugar);
-        score = root.findViewById(R.id.calificacionLugar);
-        lugarImage = root.findViewById(R.id.imageLugar);
-        seeInTheMap = root.findViewById(R.id.verMas);
-        bitmap = null;
-
-
-        seeInTheMap.setOnClickListener(
-                (v)->{
-                    lister.clickEye(this.nombre.getText().toString());
+        this.root = root;
+        locationName = root.findViewById(R.id.locationName);
+        locationScore = root.findViewById(R.id.locationScore);
+        locationImg = root.findViewById(R.id.locationImg);
+        distance = root.findViewById(R.id.distance);
+        locationViewBT = root.findViewById(R.id.locationViewBT);
+        locationViewBT.setOnClickListener(
+                (View v)->{
+                    observer.onViewLocation(this.item);
                 }
         );
-
-    }
-
-    public void setLister(ButtonEyeLister lister) {
-        this.lister = lister;
+        //locationViewBT = root.findViewById(R.id.locationViewBT);
     }
 
     public ConstraintLayout getRoot() {
         return root;
     }
 
-    public TextView getNombre() {
-        return nombre;
+    public TextView getLocationName() {
+        return locationName;
     }
 
-    public TextView getScore() {
-        return score;
+    public TextView getLocationScore() {
+        return locationScore;
     }
 
-    public ImageView getLugarImage() {
-        return lugarImage;
+    public TextView getDistance() {
+        return distance;
     }
 
-
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public ImageView getLocationImg() {
+        return locationImg;
     }
 
-    public interface ButtonEyeLister{
-        void clickEye(String nombre);
+    public ImageButton getLocationViewBT() {return locationViewBT;}
+
+    public void setItem(LocationItem item) { this.item = item; }
+
+    public LocationItem getItem() { return item; }
+
+    public void setObserver(LocItemAdapter locItemAdapter) {
+        observer = locItemAdapter;
     }
-
-
-
 }

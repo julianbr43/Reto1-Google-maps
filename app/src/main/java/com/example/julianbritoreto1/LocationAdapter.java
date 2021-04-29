@@ -1,6 +1,7 @@
 package com.example.julianbritoreto1;
 
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,72 +12,78 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class LocationAdapter extends RecyclerView.Adapter<LocationView> implements LocationView.ButtonEyeLister {
+public class LocItemAdapter extends RecyclerView.Adapter<LocItemView> implements  OnLocItemAction{
 
-    private ArrayList<Location> lugaresList;
-    private RowListener listener;
+    private ArrayList<LocationItem> items;
+    private ArrayList<LocationItem> shcItems;
 
+    private OnLocItemAction obsever;
 
-    public LocationAdapter(){
-        lugaresList = new ArrayList<>();
+    public LocItemAdapter() {
+        items = new ArrayList<>();
+        shcItems = new ArrayList<>();
     }
 
-    public void setListener(RowListener listener) {
-        this.listener = listener;
-    }
-
-    public void addLugar(Location lugares){
-        lugaresList.add(lugares);
-        this.notifyDataSetChanged();
+    public void addItem(LocationItem item){
+        items.add(item);
     }
 
     @NonNull
     @Override
-    public LocationView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LocItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View row = inflater.inflate(R.layout.lugarrow, null);
+        View row = inflater.inflate(R.layout.loc_item_row, parent,false);
         ConstraintLayout rowroot = (ConstraintLayout) row;
-        LocationView lugarView = new LocationView(rowroot);
-        lugarView.setLister(this);
-        return lugarView;
+        LocItemView locItemView = new LocItemView(rowroot);
+        locItemView.setObserver(this);
+        return locItemView;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LocationView holder, int position) {
-        holder.getNombre().setText(lugaresList.get(position).getNombre());
-        if(lugaresList.get(position).getCalificaciones().isEmpty()==true){
-            holder.getScore().setText("NC");
-        }else {
-            holder.getScore().setText(String.valueOf(lugaresList.get(position).getScore()));
-        }
-        holder.getLugarImage().setImageBitmap(lugaresList.get(position).getImage());
+    public void onBindViewHolder(@NonNull LocItemView holder, int position) {
+        LocationItem item = items.get(position);
+        /*if(shcItems.size() == 0){
+            item = shcItems.get(position);
+        }*/
+        holder.setItem(item);
+        holder.getLocationName().setText(item.getName());
+        holder.getLocationScore().setText(String.valueOf(item.getScore()));
+        Bitmap image = BitmapFactory.decodeFile(item.getImageSrc());
+        Bitmap thumbnail = Bitmap.createScaledBitmap(
+                image,image.getWidth()/4, image.getHeight()/4,true
+        );
+        holder.getLocationImg().setImageBitmap(thumbnail);
+        holder.getDistance().setText(String.format("%.2f",item.getUserDistance()));
     }
 
     @Override
     public int getItemCount() {
-        return lugaresList.size();
+        return items.size();
+    }
+
+    public void setItems(ArrayList<LocationItem> items) {
+        this.items = items;
+        this.notifyDataSetChanged();
+    }
+
+    public void searchPlace(String searching){
+        //Buscar los lugares que empicen con searching
+        for (int i = 0; i < items.size(); i++) {
+            //Tirar otro for por cada titulo de cada lugar hasta el tamaño de searching
+            for (int j = 0; j < searching.length(); j++) {
+
+            }
+            //Si cumple que son iguales lo metes en shcItems
+        }
+    }
+
+    public void setObsever(OnLocItemAction obsever) {
+        this.obsever = obsever;
     }
 
     @Override
-    public void clickEye(String nombre) {
-        Log.e(">>>","ClickEye");
-        listener.clickInSeeMore(nombre);
+    public void onViewLocation(LocationItem item) {
+        obsever.onViewLocation(item);
     }
-
-    public void filterList(ArrayList<Location> listaFiltrada) {
-        lugaresList = listaFiltrada;
-        notifyDataSetChanged();
-    }
-
-
-    public interface RowListener{
-        void clickInSeeMore(String nombreLugar);
-    }
-
-
-
-
-
-
-
 }

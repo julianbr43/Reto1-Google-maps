@@ -5,13 +5,13 @@
     <item
         android:id="@+id/newLocatrion"
         android:icon="@drawable/add_place"
-        android:title="New" />
+        android:title="Nuevo" />
     <item
         android:id="@+id/mapLocation"
         android:icon="@drawable/map_arrow"
-        android:title="Map" />
+        android:title="Mapa" />
     <item
         android:id="@+id/listLocation"
         android:icon="@drawable/mini_book"
-        android:title="List" />
+        android:title="Lista" />
 </menu>

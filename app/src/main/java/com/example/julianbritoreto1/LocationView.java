@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class LocItemView extends RecyclerView.ViewHolder {
+public class LocationView extends RecyclerView.ViewHolder {
 
     private ConstraintLayout root;
     private TextView locationName;
@@ -17,14 +17,14 @@ public class LocItemView extends RecyclerView.ViewHolder {
     private ImageView locationImg;
     private ImageButton locationViewBT;
 
-    private LocationItem item;
+    private Location item;
 
-    private LocItemAdapter observer;
-
-
+    private LocationAdapter observer;
 
 
-    public LocItemView(ConstraintLayout root) {
+
+
+    public LocationView(ConstraintLayout root) {
         super(root);
         this.root = root;
         locationName = root.findViewById(R.id.locationName);
@@ -62,11 +62,11 @@ public class LocItemView extends RecyclerView.ViewHolder {
 
     public ImageButton getLocationViewBT() {return locationViewBT;}
 
-    public void setItem(LocationItem item) { this.item = item; }
+    public void setItem(Location item) { this.item = item; }
 
-    public LocationItem getItem() { return item; }
+    public Location getItem() { return item; }
 
-    public void setObserver(LocItemAdapter locItemAdapter) {
+    public void setObserver(LocationAdapter locItemAdapter) {
         observer = locItemAdapter;
     }
 }

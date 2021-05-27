@@ -1,6 +1,5 @@
-package com.example.challenge1;
+package com.example.julianbritoreto1;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,14 +8,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +17,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +44,7 @@ public class NewLocationFragment extends Fragment implements View.OnClickListene
 
     private OnChangeFragment observer2;
 
-    private AppModel model;
+    private Model model;
     private File imagFile;
 
     public NewLocationFragment() {
@@ -186,5 +181,5 @@ public class NewLocationFragment extends Fragment implements View.OnClickListene
         this.observer2 = observer2;
     }
 
-    public void setModel(AppModel model) { this.model = model; }
+    public void setModel(Model model) { this.model = model; }
 }

@@ -2,17 +2,16 @@ package com.example.julianbritoreto1;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class LocationItem {
+public class Location {
     private String name;
     private String address;
-    //private image locationImage;
-    //private GmapsObject location;
-    private LatLng myLocation;
-    private double score;
-    private double userDistance;
     private String imageSrc;
+    private double score;
+    private LatLng myLocation;
+    private double userDistance;
 
-    public LocationItem(String name, String address, String imageSrc, double score) {
+
+    public Location(String name, String address, String imageSrc, double score) {
         this.name = name;
         this.address = address;
         this.score = score;

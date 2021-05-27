@@ -1,4 +1,10 @@
-package com.example.challenge1;
+package com.example.julianbritoreto1;
+
+import android.Manifest;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -7,24 +13,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements OnChangeFragment{
+public class MainActivity extends AppCompatActivity implements OnChangeFragment {
 
     private NewLocationFragment newLocationFragment;
-    private ListItemFragment listItemFragment;
+    private ListFragment listItemFragment;
     public Button addMapAddress;
     private MapsFragment mapsFragment;
-    private LocItemAdapter adapter;
+    private LocationAdapter adapter;
     private BottomNavigationView navigator;
     private ConstraintLayout closestLocationLayout;
-    private AppModel model;
+    private Model model;
 
 
     @Override
@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity implements OnChangeFragment{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         }, 1);
 
-         model = new AppModel();
+         model = new Model();
 
         newLocationFragment = NewLocationFragment.newInstance();
         newLocationFragment.setObserver2(this);
         newLocationFragment.setModel(model);
-        listItemFragment = ListItemFragment.newInstance();
+        listItemFragment = ListFragment.newInstance();
         listItemFragment.setObserver(this);
         listItemFragment.setModel(model);
         mapsFragment  = new MapsFragment(adapter);

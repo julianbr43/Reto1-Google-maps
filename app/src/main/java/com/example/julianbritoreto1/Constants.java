@@ -1,4 +1,4 @@
-package com.example.challenge1;
+package com.example.julianbritoreto1;
 
 public class Constants {
     private static  final String PACKAGE_NAME = "con.example.challenge1";

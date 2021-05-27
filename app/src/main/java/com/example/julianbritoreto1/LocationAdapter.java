@@ -12,37 +12,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class LocItemAdapter extends RecyclerView.Adapter<LocItemView> implements  OnLocItemAction{
+public class LocationAdapter extends RecyclerView.Adapter<LocationView> implements OnLocationAction {
 
-    private ArrayList<LocationItem> items;
-    private ArrayList<LocationItem> shcItems;
+    private ArrayList<Location> items;
+    private ArrayList<Location> shcItems;
 
-    private OnLocItemAction obsever;
+    private OnLocationAction obsever;
 
-    public LocItemAdapter() {
+    public LocationAdapter() {
         items = new ArrayList<>();
         shcItems = new ArrayList<>();
     }
 
-    public void addItem(LocationItem item){
+    public void addItem(Location item){
         items.add(item);
     }
 
     @NonNull
     @Override
-    public LocItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LocationView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View row = inflater.inflate(R.layout.loc_item_row, parent,false);
+        View row = inflater.inflate(R.layout.location_data, parent,false);
         ConstraintLayout rowroot = (ConstraintLayout) row;
-        LocItemView locItemView = new LocItemView(rowroot);
+        LocationView locItemView = new LocationView(rowroot);
         locItemView.setObserver(this);
         return locItemView;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LocItemView holder, int position) {
-        LocationItem item = items.get(position);
+    public void onBindViewHolder(@NonNull LocationView holder, int position) {
+        Location item = items.get(position);
         /*if(shcItems.size() == 0){
             item = shcItems.get(position);
         }*/
@@ -62,28 +62,25 @@ public class LocItemAdapter extends RecyclerView.Adapter<LocItemView> implements
         return items.size();
     }
 
-    public void setItems(ArrayList<LocationItem> items) {
+    public void setItems(ArrayList<Location> items) {
         this.items = items;
         this.notifyDataSetChanged();
     }
 
     public void searchPlace(String searching){
-        //Buscar los lugares que empicen con searching
-        for (int i = 0; i < items.size(); i++) {
-            //Tirar otro for por cada titulo de cada lugar hasta el tamaño de searching
-            for (int j = 0; j < searching.length(); j++) {
 
+        for (int i = 0; i < items.size(); i++) {
+            for (int j = 0; j < searching.length(); j++) {
             }
-            //Si cumple que son iguales lo metes en shcItems
         }
     }
 
-    public void setObsever(OnLocItemAction obsever) {
+    public void setObsever(OnLocationAction obsever) {
         this.obsever = obsever;
     }
 
     @Override
-    public void onViewLocation(LocationItem item) {
+    public void onViewLocation(Location item) {
         obsever.onViewLocation(item);
     }
 }

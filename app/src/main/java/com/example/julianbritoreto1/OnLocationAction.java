@@ -1,5 +1,5 @@
 package com.example.julianbritoreto1;
 
-public interface OnLocItemAction {
+public interface OnLocationAction {
     public void onViewLocation(Location item);
 }

@@ -9,8 +9,8 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class AdressData {
-    public AdressData(){
+public class HttpData {
+    public HttpData(){
 
     }
 

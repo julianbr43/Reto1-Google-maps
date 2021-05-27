@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class FetchAddressIntentService extends IntentService {
+public class AddressService extends IntentService {
     private ResultReceiver resultReceiver;
 
-    public FetchAddressIntentService() {
+    public AddressService() {
         super("FetchAddressIntentService");
     }
 

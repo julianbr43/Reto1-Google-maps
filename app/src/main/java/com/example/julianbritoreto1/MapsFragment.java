@@ -1,15 +1,9 @@
-package com.example.challenge1;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
+package com.example.julianbritoreto1;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -19,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,11 +31,11 @@ import java.util.ArrayList;
 
 public class MapsFragment extends Fragment {
 
-    private LocItemAdapter adpater;
+    private LocationAdapter adpater;
     private GoogleMap nMap;
     private LocationManager manager;
     private OnChangeFragment observer;
-    private AppModel model;
+    private Model model;
     private MarkerOptions currentPosition;
     private ConstraintLayout closestLocationLayout;
     private TextView closestName;
@@ -72,7 +71,7 @@ public class MapsFragment extends Fragment {
 
     LocationListener myLocationListener= new LocationListener() {
         @Override
-        public void onLocationChanged(Location location) {
+        public void onLocationChanged(android.location.Location location) {
             LatLng myPos = new LatLng(location.getLatitude(),location.getLongitude());
             //Here is where I ask my distance between stored locations
             if(!model.getItems().isEmpty()) {
@@ -100,8 +99,8 @@ public class MapsFragment extends Fragment {
     //when this method is called it has to have elelments in the arrayList of items
     private void updateDistances(LatLng myPos) {
 
-        ArrayList<LocationItem> items = model.getItems();
-        LocationItem closest = items.get(0);
+        ArrayList<Location> items = model.getItems();
+        Location closest = items.get(0);
         int n = items.size();
         for (int i = 0; i < n; i++) {
             if(closest.getUserDistance()>items.get(i).getUserDistance()) closest = items.get(i);
@@ -132,7 +131,7 @@ public class MapsFragment extends Fragment {
         }
     };
 
-    public MapsFragment(LocItemAdapter adapter) {
+    public MapsFragment(LocationAdapter adapter) {
          this.adpater = adapter;
     }
 
@@ -162,7 +161,7 @@ public class MapsFragment extends Fragment {
 
     @SuppressLint("MissingPermission")
     public void setInitialPos(){
-        Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        android.location.Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         LatLng myPos;
 
         if(model.getState() == model.STATE_E_LOOKING){
@@ -188,7 +187,7 @@ public class MapsFragment extends Fragment {
 
 
                 //Updates all the places
-                ArrayList<LocationItem> items = model.getItems();
+                ArrayList<Location> items = model.getItems();
                 if(!items.isEmpty()){
                     int n = items.size();
                     for (int i = 0; i < n; i++) {
@@ -208,7 +207,7 @@ public class MapsFragment extends Fragment {
 
     }
 
-    private void showBottomLayout(LocationItem item) {
+    private void showBottomLayout(Location item) {
         closestLocationLayout.setVisibility(View.VISIBLE);
         closestName.setText(item.getName());
         closestAddress.setText(item.getAddress());
@@ -229,7 +228,7 @@ public class MapsFragment extends Fragment {
         nMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,zoom));
     }
 
-    public void setModel(AppModel model) {
+    public void setModel(Model model) {
         this.model = model;
     }
 

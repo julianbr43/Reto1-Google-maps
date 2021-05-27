@@ -11,26 +11,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ListItemFragment#newInstance} factory method to
+ * Use the {@link ListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListItemFragment extends Fragment implements  OnLocItemAction{
+public class ListFragment extends Fragment implements OnLocationAction {
 
     private RecyclerView locItemViewList;
     private LinearLayoutManager layoutManager;
-    private LocItemAdapter adpater;
+    private LocationAdapter adpater;
     private OnChangeFragment observer;
-    private AppModel model;
+    private Model model;
 
 
-    public ListItemFragment() {
-        adpater = new LocItemAdapter();
+    public ListFragment() {
+        adpater = new LocationAdapter();
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static ListItemFragment newInstance() {
-        ListItemFragment fragment = new ListItemFragment();
+    public static ListFragment newInstance() {
+        ListFragment fragment = new ListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -43,7 +43,7 @@ public class ListItemFragment extends Fragment implements  OnLocItemAction{
         // Inflate the layout for this fragment
         adpater.setItems(model.getItems());
         adpater.setObsever(this);
-        View root = inflater.inflate(R.layout.fragment_list_item,container,false);
+        View root = inflater.inflate(R.layout.fragment_list,container,false);
         locItemViewList = root.findViewById(R.id.locItemsViewList);
         locItemViewList.setHasFixedSize(true);
 
@@ -55,13 +55,13 @@ public class ListItemFragment extends Fragment implements  OnLocItemAction{
     }
 
 
-    public void setModel(AppModel model) {  this.model = model; }
+    public void setModel(Model model) {  this.model = model; }
     public void setObserver(OnChangeFragment observer) {
         this.observer = observer;
     }
 
     @Override
-    public void onViewLocation(LocationItem item) {
+    public void onViewLocation(Location item) {
         observer.requestFragment(R.id.mapLocation);
         model.setState(model.STATE_E_LOOKING);
         model.setShwItem(item);

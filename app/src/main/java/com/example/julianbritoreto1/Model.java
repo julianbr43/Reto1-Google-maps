@@ -4,11 +4,11 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
-public class AppModel {
+public class Model {
 
-    private ArrayList<LocationItem> items;
-    private LocationItem newItem;
-    private LocationItem shwItem;
+    private ArrayList<Location> items;
+    private Location newItem;
+    private Location shwItem;
     private LatLng userLocation;
     public static final int STATE_CREATING = 1;
     public static final int STATE_E_LOOKING = 2;
@@ -16,20 +16,20 @@ public class AppModel {
     private int state;
     public int imgIdentifier;
 
-    public AppModel() {
-        newItem = new LocationItem(null,"No seleccionada","No dir",0);
-        shwItem = new LocationItem(null,"No seleccionada","No dir",0);
+    public Model() {
+        newItem = new Location(null,"No seleccionada","No dir",0);
+        shwItem = new Location(null,"No seleccionada","No dir",0);
         items = new ArrayList<>();
         state = STATE_G_LOOKING;
         imgIdentifier = 0;
         userLocation = new LatLng(0,0);
     }
 
-    public ArrayList<LocationItem> getItems() {
+    public ArrayList<Location> getItems() {
         return items;
     }
 
-    public LocationItem getNewItem() {
+    public Location getNewItem() {
         return newItem;
     }
 
@@ -49,18 +49,18 @@ public class AppModel {
         this.userLocation = userLocation;
     }
 
-    public LocationItem getShwItem() {
+    public Location getShwItem() {
         return shwItem;
     }
 
-    public void setShwItem(LocationItem shwItem) {
+    public void setShwItem(Location shwItem) {
         this.shwItem = shwItem;
     }
 
     public void addNewItem() {
         state = STATE_G_LOOKING;
         items.add(newItem);
-        newItem = new LocationItem(null,"No seleccionada","No dir",0);
+        newItem = new Location(null,"No seleccionada","No dir",0);
     }
 
     public void updateDistance() {
